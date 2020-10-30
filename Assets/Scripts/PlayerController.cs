@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     bool inAir = false;
     public float groundCheckDistance = 0.5f;
     public float jumpForce = 1;
+    public Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -32,9 +33,13 @@ public class PlayerController : MonoBehaviour
             }
             transform.localScale = new Vector3(scaleX * direction, transform.localScale.y, transform.localScale.z);
         }
+        if (Input.GetButton("Fire1"))
+        {
+            anim.SetTrigger("attack");
+        }
 
-        //Make sure char is on the ground by checking the distance from char downwards
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance);
+            //Make sure char is on the ground by checking the distance from char downwards
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance);
         Debug.DrawRay(transform.position, Vector2.down, Color.red);
         //if there is ground close enough you arnt in air
         inAir = hit.collider == null;
